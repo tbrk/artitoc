@@ -11,6 +11,7 @@
 
 % \newtitle of article}
 \DeclareRobustCommand{\newtitle}[1]{%
+%\phantomsection\addcontentsline{toc}{section}{#1}
 \edef\ARTITOC@tolog{title:\noexpand\thepage:\unexpanded{#1}}%
 \expandafter\write\expandafter\ARTITOC@file\expandafter{\ARTITOC@tolog}%
 }

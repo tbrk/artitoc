@@ -109,13 +109,22 @@ let output_toc och =
 
 (* Produce the author index *)
 
+(* let output_page_number och p = Printf.fprintf och "%d" p *)
+
+let output_page_number och p =
+  Printf.fprintf och "\\hyperlink{page.%d}{%d}" p p
+
 let rec output_other_pages och = function
   | [] -> ()
-  | p::ps -> Printf.fprintf och ", %d" p; output_other_pages och ps
+  | p::ps ->
+      Printf.fprintf och ", %a" output_page_number p;
+      output_other_pages och ps
 
 let output_page_list och = function
   | [] -> ()
-  | p::ps -> Printf.fprintf och "%d" p; output_other_pages och ps
+  | p::ps ->
+      output_page_number och p;
+      output_other_pages och ps
 
 let output_author_entry och (_, author, pages) =
   Printf.fprintf och "%s \\dotfill & %a \\\\\n"
