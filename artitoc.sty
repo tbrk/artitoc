@@ -1,0 +1,26 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{artitoc}[2022/01/06 1.0.0 Generate article TOC and authors]
+
+% 2022 T.Bourke
+% Log titles and authors to an .atoc file
+
+\makeatletter
+\newwrite\ARTITOC@file
+\openout\ARTITOC@file=\jobname.atoc
+\AtEndDocument{\closeout\ARTITOC@file}
+
+% \newtitle of article}
+\DeclareRobustCommand{\newtitle}[1]{%
+\edef\ARTITOC@tolog{title:\noexpand\thepage:\unexpanded{#1}}%
+\expandafter\write\expandafter\ARTITOC@file\expandafter{\ARTITOC@tolog}%
+}
+
+% \addauthor{firstname1}{lastname1}
+% \addauthor{firstname2}{lastname2}
+\DeclareRobustCommand{\addauthor}[2]{%
+\edef\ARTITOC@tolog{author:\noexpand\thepage:\unexpanded{#1}:\unexpanded{#2}}%
+\expandafter\write\expandafter\ARTITOC@file\expandafter{\ARTITOC@tolog}%
+}
+\makeatother
+
+\endinput

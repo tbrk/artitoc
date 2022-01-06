@@ -1,0 +1,46 @@
+% ./artitoc.ml --toc toc.tex --authors authors.tex example.atoc
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{pdfpages}
+
+\usepackage{artitoc}
+
+\usepackage{titletoc}
+
+% Macros for table of contents
+\titlecontents{subsubsection}[2pt]{%
+\addvspace{10pt}\bfseries\titlerule[0.5pt]\filright}{}{}{}[]
+\titlecontents{section}[0pt]{%
+\addvspace{5pt}\filright}{}{}{\dotfill\contentspage}[]
+\titlecontents{subsection}[10pt]{\addvspace{1pt}\itshape\filright}{}{}{}[]
+\newcommand{\tocSection}[1]{\contentsline{subsubsection}{#1\\*\titlerule[0.5pt]\vspace{-9pt plus 2pt minus 2pt}}{}{}\nopagebreak[4]}
+\newcommand{\tocTitle}[2]{\contentsline{section}{#1}{#2}{}\nopagebreak[4]}
+\newcommand{\tocAuthors}[1]{\contentsline{subsection}{#1}{}{}}
+
+\begin{document}
+
+% % % % % % % % % % % % % % % % % % % % % % % %
+\section*{Table of Contents}
+\input{toc.tex}
+
+% % % % % % % % % % % % % % % % % % % % % % % %
+\newtitle{Cribbles for beginners}
+\addauthor{Jiwong}{Artbaud}
+\addauthor{Tobothy}{Borkalik}
+\addauthor{Mikaël}{van der Couzep}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}}]{woke_paper_1.pdf}
+
+\newtitle{mih: Stars from the Sky for Free}
+\addauthor{Samantha}{du Bourg}
+\addauthor{Tobothy}{Borkalik}
+\includepdf[pages=-,pagecommand={\thispagestyle{plain}}]{woke_paper_2.pdf}
+
+% % % % % % % % % % % % % % % % % % % % % % % %
+\section*{Author Index}
+
+\begin{tabular}{p{14cm}p{2cm}}
+  \input{authors.tex}
+\end{tabular}
+
+\end{document}
